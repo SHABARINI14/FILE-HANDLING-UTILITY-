@@ -1,0 +1,114 @@
+import java.io.*;
+import java.util.*;
+public class FileUtility{
+ private static final Scanner scanner=new Scanner (System.in);
+public static void main (String[] args){
+while(true){
+System.out.println("\n---File Handling Utility ---");
+System.out.println("1.Write to file");
+System.out.println("2.Read from file ");
+System.out.println("3.Modify file");
+System.out.println("4.Exit");
+System.out.println("Choose an option:");
+int choice=Integer.parseInt(scanner.nextLine());
+switch (choice){
+case 1:
+write To File();
+break;
+case 2:
+read From File();
+break;
+case 3:
+modify File();
+break;
+case 4:
+System.out.println("Exiting....");
+return;
+default:
+System.out.println("Invalid choice.");
+}
+}
+}
+Private static void write To File(){
+try{
+System.out.print("Enter file name:");
+String fileName=scanner.nextLine();
+System.out.print("Do you want to append(true/false)?");
+boolean append=Boolean.parseBoolean(scanner.nextLine());
+System.out.println("Enter text to write (type 'EOF' on a new line to stop):");
+BufferedWriter writer= new BufferedWriter(new File writer(fileName,append));
+while(true){
+String line=scanner.nextLine();
+if(line.equalsIgnoreCase("EOF"))
+break;
+writer.write(line);
+writer.newLine();
+}
+writer.close();
+System.out.println("Successfully written to file.");
+}
+catch(IOException e){
+System.out.println("Error writing to file:"+e.getMessage());
+}
+}
+private static void read From File(){
+try{
+System.out.print("Enter file name:");
+String fileName=scanner.nextLine();
+BufferedReader reader= new BufferedReader (new File reader(fileName));
+String line;
+System.out.println("\n---File Content ---");
+while((line=reader.readLine())!=null){
+System.out.println(line);
+}
+reader.close();
+}
+catch(IOException e){
+System.out.println("Error reading file:"+e.getMessage());
+}
+}
+private static void modify File(){
+try{
+System.out.println("Enter file name:");
+String fileName= scanner.nextLine():
+File file= new File(fileName);
+If(!file.exists()){
+System.out.println("File does not exit.");
+return;
+}
+List<String>lines= new Array list<>();
+BufferedReader reader= new BufferedReader (new File reader(file));
+String line;
+while ((line=reader.readLine())!=null){
+lines.add(line);
+}
+reader.close();
+System.out.print("Enter text to find:");
+String to Find=scanner.nextLine();
+System.out.print("Enter replacement text:");
+String to Replace=scanner.nextLine();
+boolean replaced=false;
+for(int i=0;i<lines.size();i++){
+if(lines.get(i).contains(to Find)){
+lines.set(i,lines.get(i).replace(to Find,to replace));
+replaced=true;
+}
+}
+if(replaced){
+BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+for(String updatedLine: lines){
+writer.write(updatedLine);
+writer.newLine();
+}
+writer.close();
+System.out.println("File modified successfully.");
+}
+else{
+System.out.println("Text not found.No modifications made.");
+}
+}
+catch (IOException e){
+System.out.println("Error modifying file:"+e.getMessage());
+}
+}
+}
